@@ -341,13 +341,25 @@ const ContractBase = (areaId, defaultProps={}) => WrappedComponent => {
         startTime: 'sortStartTime'
       }
       //console.log(sortDirMap[order], fieldMap[field])
+      const sortValues = field ? {
+        sort: sortDirMap[order], 
+        [fieldMap[field]]:'1'
+      } : {}
       this.setState({
         searchFormValues: {
           ...this.state.searchFormValues,
-          sort: sortDirMap[order], 
-          [fieldMap[field]]:'1'
+          ...sortValues
         }
       }, () => {
+        if(!field) {
+          delete this.state.searchFormValues['sortCode'];
+          delete this.state.searchFormValues['sortNo'];
+          delete this.state.searchFormValues['sortRoomName'];
+          delete this.state.searchFormValues['sortEndTime'];
+          delete this.state.searchFormValues['sortStartTime'];
+          delete this.state.searchFormValues['undefined'];
+          delete this.state.searchFormValues['sort'];
+        }
         this.fetchContract({...this.state.searchFormValues, current, size: pageSize});
       });
     }

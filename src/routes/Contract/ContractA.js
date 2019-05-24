@@ -64,8 +64,11 @@ const columns = ( { handleChangeUpdateType, handleContractThrow, handleUnThrow, 
     {
       title: '房间号',
       dataIndex: 'roomsName',
-      sorter: true
-      //render: val => val.replace(/\s+$/, '')
+      width: 200,
+      sorter: true,
+      render: val => <div style={{ wordWrap: 'break-word', wordBreak: 'break-all' }}>
+      {val}
+    </div>
     },
     {
       title: '间数',
